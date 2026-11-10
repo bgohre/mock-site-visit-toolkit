@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Toolkit from the NAGIC session Practice Makes Prepared: fillable planning tools, checklists, and an Excel workbook for building ACGME mock site visits at the program and institutional level.">
+<title>Practice Makes Prepared | Mock Site Visit Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/* Layout: navy header band with a green rule, five hash-routed views, planning tools as editable tables in white panels. Palette taken from the session deck. */
+:root{
+  --navy:#0B2A4A; --blue:#2E6DB4; --green:#4E9A2E; --sky:#A9CBE8;
+  --bg:#F5F8FB; --surface:#FFFFFF; --pale:#E8F0F8; --paleg:#EDF5E8; --line:#C9D6E3; --fg:#14233A; --fg2:#5A6B7D;
+  --band:#0B2A4A; --band-fg:#F5F8FB; --field:#FFFFFF; --example:#E8F0F8; --focus:#2E6DB4; --accent:#2E6DB4;
+  --display:"Source Serif 4",Georgia,"Times New Roman",serif; --body:"Source Sans 3","Segoe UI",Calibri,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F1A28; --surface:#172536; --pale:#1F3144; --paleg:#1E3024; --line:#2F4559; --fg:#E8F0F8; --fg2:#A9BBD0; --navy:#E8F0F8;
+  --blue:#7FB2E8; --green:#7CC457; --band:#08192D; --band-fg:#E8F0F8; --field:#0F1A28; --example:#1F3144; --focus:#7FB2E8; --accent:#7FB2E8; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0F1A28; --surface:#172536; --pale:#1F3144; --paleg:#1E3024; --line:#2F4559; --fg:#E8F0F8; --fg2:#A9BBD0; --navy:#E8F0F8;
+  --blue:#7FB2E8; --green:#7CC457; --band:#08192D; --band-fg:#E8F0F8; --field:#0F1A28; --example:#1F3144; --focus:#7FB2E8; --accent:#7FB2E8; color-scheme:dark }
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5;margin:0}
+h1,h2,h3,h4{text-wrap:balance;margin:0;line-height:1.15;color:var(--navy)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,4.6vw,2.9rem);letter-spacing:-.01em}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(1.4rem,3vw,1.9rem)}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:var(--blue)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.lede{font-size:1.15rem;color:var(--fg2);max-width:62ch}
+.measure{max-width:65ch}
+.muted{color:var(--fg2)}
+.vis-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+header{background:var(--band);color:var(--band-fg);position:sticky;top:env(safe-area-inset-top,0px);z-index:9;border-bottom:4px solid var(--green)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.7rem;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:1.05rem;color:var(--band-fg);text-decoration:none}
+.brand small{display:block;font-family:var(--body);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+nav{display:flex;gap:.25rem;flex-wrap:wrap}
+nav a{color:var(--band-fg);text-decoration:none;font-weight:600;font-size:.92rem;padding:.4rem .7rem;border-radius:4px;opacity:.85}
+nav a:hover,nav a:focus-visible{opacity:1;background:rgba(255,255,255,.08)}
+nav a[aria-current="page"]{opacity:1;box-shadow:inset 0 -3px 0 var(--green)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+main{padding-block:2.5rem 4rem;max-width:100%;overflow-x:clip}
+.view{display:grid;gap:2.5rem;min-width:0}
+.view>*,section>*,.ws>*,.ws .body{min-width:0}
+section{display:grid;gap:1rem;min-width:0}
+.hero{display:grid;gap:1.1rem;padding-bottom:2rem;border-bottom:1px solid var(--line)}
+.hero .byline{color:var(--fg2);font-size:.95rem}
+.hero .byline strong{color:var(--fg)}
+.notice{background:var(--paleg);border-left:4px solid var(--green);padding:.9rem 1.1rem;color:var(--fg);max-width:70ch}
+.notice.blue{background:var(--pale);border-left-color:var(--blue)}
+.grid2{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid3{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.grid4{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--blue);padding:1.1rem 1.2rem;display:grid;gap:.5rem;min-width:0;align-content:start}
+.card.g{border-top-color:var(--green)}
+.card.n{border-top-color:var(--navy)}
+.card h3{font-size:1.05rem}
+.card p,.card li{color:var(--fg2);font-size:.98rem}
+.card .num{font-family:var(--display);font-size:1.5rem;color:var(--blue);line-height:1}
+.tile{background:var(--surface);border:1px solid var(--line);padding:1rem 1.1rem;display:grid;gap:.35rem;min-width:0}
+.tile .big{font-family:var(--display);font-size:2.2rem;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+.tile p{color:var(--fg2);font-size:.95rem}
+.tile small{color:var(--fg2);font-size:.8rem}
+.tile.dark{background:var(--band);border-color:var(--band)}
+.tile.dark .big,.tile.dark p,.tile.dark small{color:var(--band-fg)}
+.linkcard{display:grid;gap:.4rem;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--green);padding:1.1rem 1.2rem;text-decoration:none;color:var(--fg);min-width:0}
+.linkcard:hover{border-color:var(--blue)}
+.linkcard span{color:var(--fg2);font-size:.95rem}
+.linkcard .go{color:var(--blue);font-weight:700;font-size:.9rem}
+.quote{font-family:var(--display);font-size:1.3rem;color:var(--navy);max-width:44ch;line-height:1.3}
+.steps{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.steps .card{gap:.35rem}
+.steps .when{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2);font-weight:700}
+.timeline{display:grid;gap:.5rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.timeline .ph{background:var(--surface);border:1px solid var(--line);padding:1rem 1.1rem;display:grid;gap:.3rem;border-left:6px solid var(--blue)}
+.timeline .ph:nth-child(2){border-left-color:var(--sky)}
+.timeline .ph:nth-child(3){border-left-color:var(--green)}
+.timeline .ph:nth-child(4){border-left-color:var(--navy)}
+.timeline .ph b{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.timeline .ph h3{font-size:1.2rem}
+.timeline .ph p{color:var(--fg2);font-size:.95rem}
+.agenda{display:grid;gap:.35rem;max-width:62ch}
+.agenda div{display:grid;grid-template-columns:5.5rem 1fr;gap:.6rem;background:var(--surface);border:1px solid var(--line);padding:.5rem .8rem;align-items:baseline}
+.agenda b{font-variant-numeric:tabular-nums;color:var(--blue)}
+.agenda i{color:var(--fg2);font-size:.9rem}
+ul.plain{margin:0;padding-left:1.2rem;display:grid;gap:.35rem;color:var(--fg)}
+.ws{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--blue);display:grid;gap:1rem;padding:1.3rem 1.3rem 1.5rem}
+.ws .top{display:grid;gap:.4rem}
+.ws .top p{color:var(--fg2);max-width:70ch}
+.ws .bar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.ws .bar .acts{display:flex;gap:.5rem;flex-wrap:wrap}
+.ws .foot{font-family:var(--display);font-size:1.05rem;color:var(--navy)}
+.ws .hint{font-size:.9rem;color:var(--fg2)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.95rem}
+th{background:var(--pale);text-align:left;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--fg);padding:.6rem .6rem;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:.25rem;border-bottom:1px solid var(--line);vertical-align:top;min-width:120px}
+td.narrow{min-width:48px;width:48px;text-align:center;vertical-align:middle}
+td.del{min-width:40px;width:40px;text-align:center;vertical-align:middle}
+tr.example td{background:var(--example)}
+input[type=text],input[type=date],select,textarea{width:100%;font:inherit;font-size:.95rem;color:var(--fg);background:var(--field);border:1px solid var(--line);padding:.45rem .5rem;border-radius:3px;min-height:38px}
+tr.example input,tr.example select,tr.example textarea{background:transparent;color:var(--fg2);font-style:italic;border-color:transparent}
+input:focus,select:focus,textarea:focus{border-color:var(--focus);outline:none;box-shadow:0 0 0 2px color-mix(in srgb,var(--focus) 30%,transparent)}
+input[readonly]{background:transparent;border-color:transparent;color:var(--fg);font-weight:600}
+textarea{resize:vertical;min-height:38px;line-height:1.35}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--green);margin:0}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.btn{font:inherit;font-weight:600;font-size:.92rem;padding:.5rem .9rem;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{filter:brightness(.92);color:#fff}
+.btn.quiet{border-color:transparent;color:var(--fg2);padding-inline:.5rem}
+.btn.quiet:hover{color:var(--blue)}
+.btn[disabled]{opacity:.5;cursor:default}
+.x{all:unset;cursor:pointer;color:var(--fg2);font-size:1.1rem;line-height:1;padding:.3rem .5rem;border-radius:3px}
+.x:hover{color:var(--blue);background:var(--pale)}
+.status{font-size:.85rem;color:var(--fg2);min-height:1.2em}
+.status.ok{color:var(--green)}
+.status.err{color:#B5326B}
+.fields{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.field{display:grid;gap:.3rem}
+.field label{font-size:.85rem;font-weight:700;color:var(--fg)}
+.field .sub{font-size:.85rem;color:var(--fg2);font-weight:400}
+.quad{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.quad label{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.quad .hint{font-size:.9rem;color:var(--fg2)}
+.quad textarea{min-height:110px}
+.score{display:grid;gap:1rem}
+.score .row{display:grid;gap:.5rem;grid-template-columns:1fr auto;align-items:center;background:var(--surface);border:1px solid var(--line);padding:1rem 1.1rem}
+.score .row p{font-weight:600}
+.score .val{font-family:var(--display);font-size:2rem;color:var(--blue);width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+.score .row input{grid-column:1/-1}
+.score .ends{display:flex;justify-content:space-between;font-size:.8rem;color:var(--fg2);grid-column:1/-1}
+.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;background:var(--pale);padding:.9rem 1.1rem;border:1px solid var(--line)}
+.toolbar p{font-size:.92rem;color:var(--fg2);flex:1 1 260px}
+.toolbar input[type=file]{display:none}
+.toc{display:grid;gap:.4rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.toc a{display:flex;gap:.6rem;align-items:baseline;text-decoration:none;color:var(--fg);padding:.55rem .7rem;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:.95rem}
+.toc a b{font-family:var(--display);color:var(--blue);font-weight:600;font-size:1.05rem;min-width:1.6ch}
+.toc a:hover{border-color:var(--blue)}
+.dl{display:grid;gap:.5rem;grid-template-columns:1fr auto;align-items:center;background:var(--surface);border:1px solid var(--line);padding:1rem 1.1rem}
+.dl h3{font-size:1.05rem}
+.dl p{color:var(--fg2);font-size:.95rem}
+.dl .meta{font-size:.82rem;color:var(--fg2);letter-spacing:.04em}
+@media (max-width:560px){.dl{grid-template-columns:1fr}}
+ol.src{padding-left:1.3rem;margin:0;display:grid;gap:.7rem;max-width:78ch}
+ol.src li span{color:var(--fg2)}
+.res{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.res a{display:grid;gap:.25rem;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--green);padding:.8rem 1rem}
+.res a b{color:var(--navy)}
+.res a span{color:var(--fg2);font-size:.9rem}
+.res a:hover{border-color:var(--blue)}
+footer{border-top:1px solid var(--line);padding-block:1.5rem 2.5rem;color:var(--fg2);font-size:.9rem}
+footer .wrap{display:grid;gap:.4rem}
+.toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--band);color:var(--band-fg);padding:.6rem 1rem;border-radius:4px;font-size:.92rem;box-shadow:0 6px 24px rgba(0,0,0,.25);z-index:20;max-width:calc(100vw - 32px)}
+@media (prefers-reduced-motion:no-preference){.toast{animation:up .25s ease-out}}
+@keyframes up{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#start"><small>NAGIC Monthly Meeting, November 19, 2026</small>Practice Makes Prepared</a>
+    <nav aria-label="Site">
+      <a href="#start" data-nav="start">Start</a>
+      <a href="#guide" data-nav="guide">The guide</a>
+      <a href="#worksheets" data-nav="worksheets">Planning tools</a>
+      <a href="#files" data-nav="files">Files</a>
+      <a href="#sources" data-nav="sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="view" id="v-start" hidden>
+  <div class="hero">
+    <p class="eyebrow">Session toolkit</p>
+    <h1>Creating ACGME mock site visits for your programs and institution</h1>
+    <p class="lede">What ACGME publishes about real site visits, and how to turn those same sources into a practice visit. Fill the planning tools here, save your work in this browser, and download the companion workbook.</p>
+    <p class="byline"><strong>Barbara Gohre</strong>, BSHA, C-RGME, C-TAGME, Founder, President, and CEO, FULGME; Accreditation Manager, Phoenix Children's &nbsp;|&nbsp; <strong>Kelly Conlon</strong>, MS, C-TAGME, Senior Director, Operations, Graduate Medical Education, Northwell Health, Eastern Region; Vice President and Editor in Chief, FULGME</p>
+    <p class="notice">ACGME does not require mock site visits. A mock visit is a local practice. Label it that way in your documents so no one mistakes your internal process for an ACGME requirement. ACGME content on this site comes from acgme.org; examples use the fictional NAGIC Medical Center. Free to copy and adapt.</p>
+  </div>
+
+  <section>
+    <p class="eyebrow">Where to start</p>
+    <div class="grid3">
+      <a class="linkcard" href="#worksheets"><h3>Plan your mock visit</h3><span>Scenario, mock team, six-week runway, ADS trace, document checklist, stakeholder scheduling, agenda, question bank, debrief tracker.</span><span class="go">Open planning tools</span></a>
+      <a class="linkcard" href="#guide"><h3>Read the guide</h3><span>Why now, how a real visit unfolds, who ACGME expects, the five-step build, mock day, the debrief, and the 2027 Institutional Requirements.</span><span class="go">Open the guide</span></a>
+      <a class="linkcard" href="#files"><h3>Download the workbook</h3><span>A ten-sheet Excel workbook: stakeholder scheduling, question bank, debrief tracker, document checklist, six-week plan, and more.</span><span class="go">Open files</span></a>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">What you will be able to do</p>
+    <div class="grid3">
+      <div class="card n"><p class="num">Describe</p><p>Current ACGME site visit types, notice periods, and expected participants.</p></div>
+      <div class="card"><p class="num">Build</p><p>A program mock visit and an institutional mock visit from ACGME source documents.</p></div>
+      <div class="card g"><p class="num">Apply</p><p>A repeatable mock visit system across every program you support.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Your first step</p>
+    <p class="quote">Pick one program for a pilot mock visit. Build a question bank from your last application. Fill in the stakeholder workbook. Or brief your DIO and GMEC. Pick one, put a date on it, and tell a colleague.</p>
+  </section>
+</div>
+
+<div class="view" id="v-guide" hidden>
+  <div class="hero">
+    <p class="eyebrow">The guide</p>
+    <h1>Follow the paper trail, then rehearse every step.</h1>
+    <p class="lede">A site visit tests whether three sources agree: what ADS says, what the files show, and what people say in the room. When they disagree, findings follow, even when the program runs well.</p>
+  </div>
+
+  <section>
+    <p class="eyebrow">Why mock visits matter now</p>
+    <h2>The ten-year program site visit is gone.</h2>
+    <div class="grid4">
+      <div class="tile"><p class="big">2023</p><p>October 2023: ACGME discontinued the program 10-Year Accreditation Site Visit.</p></div>
+      <div class="tile"><p class="big">2025</p><p>July 1, 2025: Field Representatives and Review Committees no longer ask for or review Self-Study information.</p></div>
+      <div class="tile"><p class="big">9+ yrs</p><p>Programs on Continued Accreditation are selected by random sampling once nine or more years pass without a visit.</p></div>
+      <div class="tile dark"><p class="big">30 days</p><p>Approximate minimum notice for any accreditation site visit.</p><small>Source: ACGME Site Visit FAQs</small></div>
+    </div>
+    <p class="notice blue">Miss the ADS update due date in the Site Visit Announcement letter and you risk a postponed visit and a $3,200 fine, per ACGME's ADS checklist. Build ADS cleanup into your mock timeline, well ahead of any real deadline.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Required versus chosen</p>
+    <h2>Know what ACGME requires and what you choose.</h2>
+    <div class="grid2">
+      <div class="card n"><h3>ACGME requirements</h3><ul class="plain"><li>Update ADS by the Site Visit Announcement due date</li><li>Upload the signed Site Visit Attestation Statement</li><li>Upload the documents ACGME lists for your status</li><li>Peer-selected resident and fellow representatives in larger programs</li><li>GMEC oversight of accreditation status (IR 1.12.a in 2026; IR 1.9.a.1 on July 1, 2027)</li></ul></div>
+      <div class="card g"><h3>Local practice</h3><ul class="plain"><li>Mock site visits</li><li>Your mock agenda and mock reviewers</li><li>Your internal question bank</li><li>Your debrief format and GMEC reporting</li></ul><p>A mock visit gives your GMEC a practical way to show oversight in action.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Site visit types</p>
+    <h2>Eight reasons ACGME schedules a site visit.</h2>
+    <div class="grid4">
+      <div class="card"><h3>Application</h3><p>New program application.</p></div>
+      <div class="card g"><h3>Initial Accreditation</h3><p>End of the Initial Accreditation period, before a decision on Continued Accreditation.</p></div>
+      <div class="card"><h3>Annual data review</h3><p>Review Committee request after its review of ADS data: surveys, Case Logs, board pass rates, scholarly activity, attrition, program changes.</p></div>
+      <div class="card g"><h3>Random sampling</h3><p>Continued Accreditation, nine or more years since the last visit.</p></div>
+      <div class="card"><h3>SI 10-Year</h3><p>Sponsoring Institution, after its Self-Study process.</p></div>
+      <div class="card g"><h3>Probation</h3><p>Required before the next status decision.</p></div>
+      <div class="card"><h3>Complaint</h3><p>Review of complaint allegations.</p></div>
+      <div class="card g"><h3>Other</h3><p>Review Committee request at its discretion.</p></div>
+    </div>
+    <p class="measure muted">Start by asking which of these is most likely for the program in front of you. A program nearing the end of Initial Accreditation needs a different mock than a program with a long record of Continued Accreditation.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">How a real visit unfolds</p>
+    <h2>Six steps from blackout dates to the Letter of Notification.</h2>
+    <div class="steps">
+      <div class="card n"><p class="when">1</p><h3>Blackout date email</h3><p>About 8 dates per 30-day window in ADS. Locked once submitted. ACGME decides remote or in person.</p></div>
+      <div class="card"><p class="when">2</p><h3>Site Visit Announcement</h3><p>Date, format, Field Representative, and ADS due dates.</p></div>
+      <div class="card n"><p class="when">3</p><h3>Letter of Instruction</h3><p>Schedule, strengths and areas-for-improvement lists, extra documents.</p></div>
+      <div class="card"><p class="when">4</p><h3>ADS updates and uploads</h3><p>Complete by the due date, including the signed attestation.</p></div>
+      <div class="card n"><p class="when">5</p><h3>Site visit day</h3><p>Interviews, document review, concluding meeting.</p></div>
+      <div class="card g"><p class="when">6</p><h3>Report and decision</h3><p>Factual Site Visit Report to the Review Committee. Letter of Notification in ADS 60 to 90 days after the committee meets.</p></div>
+    </div>
+    <p class="notice blue">Field Representatives collect information. Review Committees make accreditation decisions. Rehearse every step, starting with a practice letter.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Who ACGME asks to attend</p>
+    <h2>Schedule the same people ACGME expects.</h2>
+    <div class="grid2">
+      <div class="card n"><h3>Program visit</h3><ul class="plain"><li>Program director</li><li>Program Administrator(s)</li><li>DIO and/or chair, or a representative</li><li>Faculty members</li><li>Residents/fellows</li></ul><p>Small programs: all residents on duty that day. Larger programs: peer-selected from all required years; the most senior year often meets separately.</p></div>
+      <div class="card"><h3>Institutional visit</h3><ul class="plain"><li>DIO and Institutional Manager(s)</li><li>Program directors and Program Administrators</li><li>GMEC members</li><li>Senior institutional officials, such as the CEO</li><li>Residents/fellows representing programs</li><li>Faculty members representing all sites</li></ul><p>The Field Representative often meets briefly with the Program Administrator or Institutional Manager. Practice your own interview too.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Program mock visit</p>
+    <h2>Build a program mock visit in five steps.</h2>
+    <div class="steps">
+      <div class="card"><p class="when">1</p><h3>Choose the scenario</h3><p>Match the visit type and the program's accreditation status.</p></div>
+      <div class="card"><p class="when">2</p><h3>Build the mock team</h3><p>Lead reviewer from outside the program: GME office, a peer program in another specialty, a sister institution, or a former site visitor. Ground rules in writing.</p></div>
+      <div class="card"><p class="when">3</p><h3>Gather the sources</h3><p>Latest application or ADS data, last Letter of Notification, citations, survey results.</p></div>
+      <div class="card"><p class="when">4</p><h3>Mirror the schedule</h3><p>Same interview groups and order ACGME uses.</p></div>
+      <div class="card g"><p class="when">5</p><h3>Debrief and track</h3><p>Every finding gets an owner, a due date, and a status.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Mock timeline</p>
+    <h2>Give every mock a six-week runway.</h2>
+    <div class="timeline">
+      <div class="ph"><b>Weeks 6 to 5</b><h3>Audit</h3><p>Trace ADS to source documents. Freeze discretionary ADS changes.</p></div>
+      <div class="ph"><b>Week 4</b><h3>Assemble</h3><p>Build the document set in the order a Field Representative asks for it. Name one person who knows where every item lives.</p></div>
+      <div class="ph"><b>Weeks 3 to 2</b><h3>Prepare</h3><p>Short orientation for each interview group. Topics, not scripts.</p></div>
+      <div class="ph"><b>Week 1</b><h3>Perform</h3><p>Run mock day. Send the written report within days.</p></div>
+    </div>
+    <p class="measure muted">Timeline recommended by the presenters. Scale down for a focused mock.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Where most findings start</p>
+    <h2>Start with ADS and trace every field to a source.</h2>
+    <div class="grid2">
+      <div class="card n"><h3>Fields to trace</h3><ul class="plain"><li>Rosters: match faculty and resident rosters to appointment records</li><li>Block diagram: match it to the schedules residents work, with a key for abbreviations</li><li>Scholarly activity: list only what someone can produce on request</li><li>Citation responses: describe what the program does today, not last year's plan</li><li>Major changes: state what changed and the improvement it supports</li></ul></div>
+      <div class="card g"><h3>ACGME Field Activities flags</h3><ul class="plain"><li>Consistency across documents</li><li>Block diagram and rosters</li><li>Responses to citations and major changes</li><li>Faculty scholarly activity</li><li>Accuracy and typos</li></ul><p>A response describing a fix the program later dropped turns a compliance gap into a credibility gap.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">The heart of the mock visit</p>
+    <h2>Build questions from the documents ACGME reads.</h2>
+    <div class="grid3">
+      <div class="card"><h3>Latest application or ADS update</h3><p>Build questions section by section.</p></div>
+      <div class="card"><h3>Current citations</h3><p>Ask about each one using ACGME's exact citation language and your response.</p></div>
+      <div class="card"><h3>Areas for improvement</h3><p>Pull every item from your last Letter of Notification.</p></div>
+      <div class="card"><h3>Every "must"</h3><p>Turn each must in the IRs, CPRs, and specialty requirements into a question.</p></div>
+      <div class="card"><h3>Supervision policy</h3><p>Test the written policy against CPR 6.6 to 6.9 and what residents describe, including when a supervising physician must be physically present.</p></div>
+      <div class="card"><h3>ACGME survey results</h3><p>Turn low-scoring Resident/Fellow and Faculty Survey items into topics.</p></div>
+    </div>
+    <p class="notice blue">Aim the mock at your specialty's citations. Open your Review Committee's specialty update presentation from the ACGME Annual Educational Conference and build interview questions around its frequent citations and areas for improvement. In ACGME's 2025 General Surgery update, the top five were fear of retaliation, 80 hours, faculty interest in education, service-to-education imbalance, and one day in seven. Pediatrics residency themes for 2023 to 2024: evaluations, timely faculty feedback, required language in final evaluations, and the 80-hour limit.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Fictional example: NAGIC Medical Center</p>
+    <h2>A sample program mock visit agenda.</h2>
+    <div class="agenda">
+      <div><b>8:00</b><span>Program director and Program Administrator</span></div>
+      <div><b>9:00</b><span>Peer-selected residents, junior years</span></div>
+      <div><b>9:45</b><span>Peer-selected residents, senior year <i>Interviewed separately</i></span></div>
+      <div><b>10:30</b><span>Faculty members</span></div>
+      <div><b>11:15</b><span>Department chair or designee</span></div>
+      <div><b>11:35</b><span>DIO designee</span></div>
+      <div><b>11:55</b><span>Document review</span></div>
+      <div><b>12:30</b><span>Concluding meeting with the program director</span></div>
+    </div>
+    <p class="measure muted">Mock Field Representative: the Institutional Manager. Your real schedule comes from your Field Representative; rebuild the agenda once the Letter of Instruction arrives.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Institutional mock visit</p>
+    <h2>Build the institutional mock around ADS uploads and six interview themes.</h2>
+    <div class="grid2">
+      <div class="card n"><h3>Site visit uploads</h3><ul class="plain"><li>Written policies</li><li>Sample resident and fellow agreements of appointment</li><li>Professional liability coverage</li></ul><h3 style="margin-top:.5rem">Institutional Review Questionnaire</h3><ul class="plain"><li>Org chart showing the DIO's position</li><li>Org chart showing the GMEC's position</li><li>Statement of Commitment</li><li>GMEC membership</li><li>Annotated GMEC minutes</li><li>Annual Institutional Review summaries</li><li>GMEC Special Review protocol</li><li>Special Review reports, if available</li></ul></div>
+      <div class="card g"><h3>Six interview themes</h3><ul class="plain"><li>GMEC oversight: how members monitor each program's accreditation status</li><li>Annual Institutional Review: latest LON, ACGME surveys, program statuses and citations (IR 1.14.a)</li><li>Special Review: underperformance criteria, report, and GMEC monitoring (IR 1.15)</li><li>Work hours: institutional oversight independent of program reports (IR FAQ, 3.2.e)</li><li>Resident forum: option, at least in part, to meet without the DIO, faculty, or administrators (IR 2.3.b)</li><li>Your role: learning environment, institutional support, professional development</li></ul><p>Mock test: pick any requirement and ask, "Show me the GMEC minute."</p></div>
+    </div>
+    <p class="measure muted">Requirement numbers reflect the 2026 Institutional Requirements.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Coming July 1, 2027</p>
+    <h2>Update your institutional mock for the 2027 Institutional Requirements.</h2>
+    <p class="measure muted">Major revision approved by the ACGME Board on September 28, 2026, effective July 1, 2027. Six changes affect your institutional mock.</p>
+    <div class="grid3">
+      <div class="card"><h3>No Core, Detail, or Outcome labels</h3><p>Requirement text no longer carries categories.</p></div>
+      <div class="card"><h3>AIR written summary (1.10, 1.9.b.7)</h3><p>Five minimum elements, reviewed and approved by the GMEC.</p></div>
+      <div class="card"><h3>Special Review policy (4.2)</h3><p>Initial findings to the GMEC within six months (4.2.d).</p></div>
+      <div class="card"><h3>Identifiable information (1.8.c)</h3><p>GMEC must not receive or discuss identifiable assessment, performance, or health information about individual residents or fellows.</p></div>
+      <div class="card"><h3>Work hour monitoring (1.9.a.8)</h3><p>Must not depend only on program reports.</p></div>
+      <div class="card g"><h3>GME administrative professionals (2.1.d, 2.2.d)</h3><p>Support, dedicated time, and professional development.</p></div>
+    </div>
+    <p class="notice">Build your mock from the requirements in effect on the date of the visit.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Mock visit day</p>
+    <h2>Run the mock the way ACGME runs the real visit.</h2>
+    <div class="grid3">
+      <div class="card n"><h3>Mirror the remote setup</h3><ul class="plain"><li>Practice on Zoom, ACGME's remote platform</li><li>One person per device, camera on</li><li>Full face visible, name displayed</li><li>Quiet, private room</li><li>IT on standby</li></ul></div>
+      <div class="card g"><h3>Set the ground rules</h3><ul class="plain"><li>No recording of interviews</li><li>Interview privacy</li><li>No retaliation against residents/fellows</li><li>Encourage honesty, with no coaching</li></ul></div>
+      <div class="card"><h3>Facilitate like a Field Representative</h3><ul class="plain"><li>One lead voice asks the questions</li><li>Observers stay silent</li><li>Ask the follow-up question where answers and documents disagree</li><li>Keep real time boxes</li><li>Produce documents at real-visit speed</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">After the mock</p>
+    <h2>Turn findings into a closed plan.</h2>
+    <div class="grid4">
+      <div class="card"><h3>Write like citations</h3><p>Requirement, then evidence. Citation risks first, strengths kept. Do not soften it.</p></div>
+      <div class="card"><h3>Deliver together</h3><p>Same report to the program director and the DIO, within days.</p></div>
+      <div class="card"><h3>Track in the APE</h3><p>Owner, due date, and evidence for every item. One plan, not parallel paperwork. Re-verify before the real visit.</p></div>
+      <div class="card g"><h3>Report to GMEC</h3><p>Closure and resource gaps, with no resident-identifiable details.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Scale it</p>
+    <h2>One system for every program you support.</h2>
+    <div class="grid2">
+      <div class="card n"><h3>Triggers for scheduling a mock</h3><ul class="plain"><li>End of Initial Accreditation approaching</li><li>Warning or probationary status</li><li>Drop in ACGME survey results</li><li>New program director or Program Administrator</li><li>Nearing nine years since the last visit</li></ul></div>
+      <div class="card g"><h3>One reusable kit</h3><ul class="plain"><li>Stakeholder workbook</li><li>Question bank template, organized by source document</li><li>Debrief tracker, same fields for every program</li></ul><p>Trade reviewers across programs. A 2010 JGME article from Duke reported internal reviews benefited the reviewers' programs as well as the program under review.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Common questions</p>
+    <div class="grid3">
+      <div class="card"><h3>How far ahead should we hold a mock?</h3><p>ACGME sets no timeline for mock visits. Because minimum notice for a real visit is about 30 days, hold your mock before notice arrives, not after.</p></div>
+      <div class="card"><h3>Who should play the Field Representative?</h3><p>Someone outside the program with strong knowledge of the requirements who will ask follow-up questions and stay neutral.</p></div>
+      <div class="card"><h3>Should residents see the questions in advance?</h3><p>Share the format and the topics, and skip scripted answers. ACGME's Field Activities team advises against coaching.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="view" id="v-worksheets" hidden>
+  <div class="hero">
+    <p class="eyebrow">Planning tools</p>
+    <h1>Build your mock visit.</h1>
+    <p class="lede">Work through the tools in order. Your entries save automatically in this browser on this device. Export a backup if you want to carry them to another computer or share them with a colleague.</p>
+  </div>
+  <div class="toolbar">
+    <p id="savenote">Autosave is on for this browser.</p>
+    <button class="btn" id="exportAll" type="button">Export all as Markdown</button>
+    <button class="btn" id="backup" type="button">Save backup (JSON)</button>
+    <label class="btn" for="restore">Restore backup<input type="file" id="restore" accept="application/json,.json"></label>
+    <button class="btn quiet" id="clearAll" type="button">Clear everything</button>
+  </div>
+  <section>
+    <div class="fields" id="profile">
+      <div class="field"><label for="p_name">Prepared by</label><input type="text" id="p_name" data-k="name" autocomplete="name"></div>
+      <div class="field"><label for="p_inst">Institution</label><input type="text" id="p_inst" data-k="inst" autocomplete="organization"></div>
+      <div class="field"><label for="p_prog">Program or Sponsoring Institution</label><input type="text" id="p_prog" data-k="prog"></div>
+      <div class="field"><label for="p_date">Mock visit date</label><input type="date" id="p_date" data-k="date"></div>
+    </div>
+  </section>
+  <section>
+    <p class="eyebrow">Contents</p>
+    <div class="toc" id="toc"></div>
+  </section>
+  <div id="sheets" class="view"></div>
+</div>
+
+<div class="view" id="v-files" hidden>
+  <div class="hero">
+    <p class="eyebrow">Files</p>
+    <h1>Take the kit home.</h1>
+    <p class="lede">Editable and free to adapt. Put your own logo on it and change the wording to match your institution's policies.</p>
+  </div>
+  <section id="filelist">
+    <div class="dl">
+      <div><h3>Mock site visit workbook</h3><p>Ten sheets: scenario and mock team, six-week plan, ADS trace, document checklist, stakeholder scheduling (program and institutional), agenda, question bank, institutional themes, debrief tracker, and an annual mock calendar. Dropdowns for visit type, status, and interview groups.</p><p class="meta">EXCEL (.XLSX)</p></div>
+      <button class="btn primary" type="button" data-file="files/Mock_Site_Visit_Workbook.xlsx" data-name="Mock_Site_Visit_Workbook.xlsx">Download</button>
+    </div>
+    <p class="status" id="filestatus"></p>
+  </section>
+  <section>
+    <p class="eyebrow">Free ACGME resources</p>
+    <h2>Bookmark these before you build.</h2>
+    <div class="res">
+      <a href="https://www.acgme.org/programs-and-institutions/programs/site-visit/" target="_blank" rel="noopener"><b>Site Visit FAQs</b><span>acgme.org, Programs and Institutions, Site Visit</span></a>
+      <a href="https://www.acgme.org/programs-and-institutions/programs/site-visit/" target="_blank" rel="noopener"><b>ADS Site Visit Checklist</b><span>Checklist for updating ADS prior to a site visit, June 2026</span></a>
+      <a href="https://www.acgme.org/programs-and-institutions/programs/site-visit/" target="_blank" rel="noopener"><b>Remote Site Visit Tips</b><span>Tips for a Successful Remote Site Visit with the ACGME</span></a>
+      <a href="https://www.acgme.org/programs-and-institutions/institutions/institutional-requirements/" target="_blank" rel="noopener"><b>Institutional Requirements, 2026 and 2027</b><span>Both versions, with FAQs</span></a>
+      <a href="https://dl.acgme.org/" target="_blank" rel="noopener"><b>ACGME LINC recordings</b><span>Past sessions in Learn at ACGME (free account)</span></a>
+      <a href="https://www.acgme.org/" target="_blank" rel="noopener"><b>Accreditation Site Visit Office Hours</b><span>November 20, 2026, 12:00 to 1:00 p.m. Central. Register through the Zoom link in ACGME's October 12, 2026 e-Communication.</span></a>
+    </div>
+    <p class="measure muted" style="font-size:.9rem">Links point to ACGME landing pages; ACGME moves documents from time to time, so search the page if a file is not where you expect.</p>
+  </section>
+  <section>
+    <p class="eyebrow">Your own entries</p>
+    <p class="measure muted">Each planning tool has its own CSV or Markdown export, and the Planning tools page can export everything you typed as one Markdown file or a JSON backup you can restore later.</p>
+  </section>
+</div>
+
+<div class="view" id="v-sources" hidden>
+  <div class="hero">
+    <p class="eyebrow">Sources</p>
+    <h1>Where this comes from.</h1>
+    <p class="lede">ACGME content on this site comes from acgme.org. The mock visit structure, six-week timeline, and facilitation guidance are the presenters' recommended local practice.</p>
+  </div>
+  <section>
+    <ol class="src">
+      <li>ACGME. Site Visit: Frequently Asked Questions. <span>acgme.org/programs-and-institutions/programs/site-visit/ (accessed October 22, 2026).</span></li>
+      <li>ACGME. Checklist for Updating the Accreditation Data System (ADS) Prior to an Accreditation or Recognition Site Visit. <span>June 2026.</span></li>
+      <li>ACGME. Tips for a Successful Remote Site Visit with the ACGME. <span>2021.</span></li>
+      <li>ACGME. Institutional Requirements including FAQs. <span>Effective July 1, 2026.</span></li>
+      <li>ACGME. Institutional Requirements, major revision. <span>Approved September 28, 2026; effective July 1, 2027.</span></li>
+      <li>ACGME. Common Program Requirements (Residency). <span>2026, supervision 6.6 to 6.9.</span></li>
+      <li>ACGME e-Communication. <span>October 12, 2026 (Board actions, Site Visit Office Hours); June 15, 2026 (ACGME LINC); March 16, 2026 (Core, Detail, Outcome categorization).</span></li>
+      <li>ACGME. Surgery Update 2025 and Pediatrics Update 2025, specialty update presentations. <span>inte.acgme.org/globalassets/pfassets/presentations/2025-specialty-updates/</span></li>
+      <li>ACGME Field Activities presentation. <span>2022. Letter of Instruction details and items to watch.</span></li>
+      <li>Pfeiffer L, VanSlembrouck S, Stanley TE, Baker-Genaw K. Just Checking In: An Innovative Approach for Maintaining Program Compliance and Site Visit Readiness. <span>J Grad Med Educ. Featured in ACGME e-Communication, June 22, 2026.</span></li>
+      <li>Duke University internal review study. <span>J Grad Med Educ, 2010. Internal reviews benefited the review team members' programs as well as the program under review.</span></li>
+    </ol>
+    <p class="measure muted" style="font-size:.95rem">Citations are listed as given in the session materials. Confirm document versions and page details against acgme.org before quoting them in institutional documents.</p>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Practice Makes Prepared: Creating ACGME Mock Site Visits for Your Programs and Institution. NAGIC Monthly Meeting, November 19, 2026. Barbara Gohre and Kelly Conlon.</p>
+    <p>Nothing on this site comes from either presenter's organization's internal data. Local practice; not an ACGME requirement. Free to copy and adapt.</p>
+  </div>
+</footer>
+
+<script>window.__FILES={"files/Mock_Site_Visit_Workbook.xlsx":"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"};</script>
+<script>
+(function(){
+"use strict";
+const YN=["Yes","No"];
+const STATUS=["Not started","In progress","Done","Not applicable"];
+const VISIT=["Application","End of Initial Accreditation","Review Committee request after annual data review","Random sampling (9+ years)","Sponsoring Institution 10-Year","Probationary Accreditation","Complaint","Other Review Committee request"];
+const GROUPS=["Program director and Program Administrator","Residents/fellows (junior)","Residents/fellows (senior)","Faculty","Department chair or designee","DIO or designee","GMEC members","Institutional Managers","Senior institutional officials","Document review","Concluding meeting"];
+const QSRC=["Latest application or ADS Annual Update","Current citation (ACGME's exact language)","Area for improvement (last Letter of Notification)","Institutional Requirement (a must)","Common Program Requirement (a must)","Specialty requirement (a must)","Supervision policy (CPR 6.6 to 6.9)","Resident/Fellow Survey item","Faculty Survey item","Review Committee frequent citation (specialty update)"];
+
+const SHEETS=[
+ {id:"scenario",kind:"fields",num:"1",eyebrow:"Choose the scenario",title:"Scenario and mock team",
+  intro:"Match the mock to the visit type and the program's accreditation status. Independence is what makes a mock worth running, so the lead reviewer always comes from outside the program.",
+  items:[{k:"status",l:"Current accreditation status"},{k:"visit",l:"Most likely visit type",s:"Application, end of Initial Accreditation, Review Committee request, random sampling, SI 10-Year, probation, complaint, other."},{k:"trigger",l:"Trigger for this mock",s:"Initial Accreditation ending, warning or probation, survey drop, new PD or PA, nearing nine years."},{k:"format",l:"Remote or in person",s:"ACGME decides the format for a real visit. Practice on Zoom."},{k:"lead",l:"Lead reviewer and where they come from",s:"GME office, a peer program in another specialty, a sister institution, or an experienced former site visitor."},{k:"observers",l:"Observers"},{k:"report",l:"Who receives the written report, and by when"},{k:"rules",l:"Ground rules, in writing",s:"The mock is preparation, not an evaluation of any person. No recording, interview privacy, no retaliation, no coaching."}],
+  foot:"Put the ground rules in writing before anyone is interviewed."},
+ {id:"sources",kind:"table",num:"2",eyebrow:"Gather the sources",title:"Source documents on hand",
+  intro:"Build the mock from the documents the Field Representative reads. Record where each one lives and who owns it.",
+  cols:[{k:"doc",l:"Source",t:"text",ro:true},{k:"have",l:"On hand?",t:"select",o:YN},{k:"where",l:"Where it lives",t:"text"},{k:"owner",l:"Owner",t:"text"},{k:"notes",l:"Notes",t:"area"}],
+  fixed:true,
+  seed:[{doc:"Latest application or ADS Annual Update"},{doc:"Last Letter of Notification"},{doc:"Current citations and the program's responses"},{doc:"ACGME Resident/Fellow Survey results"},{doc:"ACGME Faculty Survey results"},{doc:"Review Committee specialty update (frequent citations)"},{doc:"Institutional, Common, and specialty requirements in effect on the visit date"}],
+  foot:"Three sources have to agree: ADS, the files, and the people in the room."},
+ {id:"plan",kind:"table",num:"3",eyebrow:"Mock timeline",title:"Six-week runway",
+  intro:"Audit in weeks six and five, assemble in week four, prepare in weeks three and two, perform in week one. Edit the tasks, name an owner, and set a date.",
+  cols:[{k:"done",l:"Done",t:"check"},{k:"window",l:"Window",t:"text"},{k:"task",l:"Task",t:"text"},{k:"owner",l:"Owner",t:"text"},{k:"date",l:"Target date",t:"date"}],
+  seed:[{window:"Weeks 6 to 5",task:"Trace every ADS field to its source document"},{window:"Weeks 6 to 5",task:"Correct what you find; log what cannot be fixed quickly"},{window:"Weeks 6 to 5",task:"Freeze discretionary ADS changes"},{window:"Week 4",task:"Build the document set in the order a Field Representative asks for it"},{window:"Week 4",task:"Name one person who knows where every item lives"},{window:"Week 4",task:"DIO reviews the materials"},{window:"Weeks 3 to 2",task:"Short orientation for each interview group (topics, not scripts)"},{window:"Weeks 3 to 2",task:"Request strengths and areas-for-improvement lists from residents and faculty"},{window:"Weeks 3 to 2",task:"Calendar holds, backups, and IT confirmed"},{window:"Week 1",task:"Run mock day: real time boxes, one lead voice"},{window:"Week 1",task:"Concluding meeting with the program director"},{window:"Week 1",task:"Written report to the PD and DIO within days"}],
+  min:14,hint:"Once the audit starts, freeze discretionary ADS changes so every later edit has a reason. ACGME's Field Activities team gives the same advice for the real visit: no ADS changes after the due date.",foot:"Scale down for a focused mock."},
+ {id:"ads",kind:"table",num:"4",eyebrow:"Where most findings start",title:"ADS trace",
+  intro:"Take each ADS field and ask for its source. Expect the audit to find things. Finding them in week six is the point.",
+  cols:[{k:"field",l:"ADS field",t:"text"},{k:"source",l:"Source it should match",t:"text"},{k:"match",l:"Matches?",t:"select",o:YN},{k:"gap",l:"Discrepancy",t:"area"},{k:"fix",l:"Fix or action",t:"area"},{k:"owner",l:"Owner",t:"text"},{k:"due",l:"Due",t:"date"}],
+  seed:[{field:"Faculty roster",source:"Appointment records"},{field:"Resident/fellow roster",source:"Appointment records"},{field:"Block diagram",source:"Rotation schedules residents work; key for abbreviations"},{field:"Scholarly activity",source:"Documentation someone can produce on request"},{field:"Citation responses",source:"Current practice, not last year's plan"},{field:"Major Changes and Other Updates",source:"What changed and the improvement it supports"}],
+  min:9,foot:"A response describing a fix the program later dropped turns a compliance gap into a credibility gap."},
+ {id:"docs",kind:"table",num:"5",eyebrow:"Program document review",title:"Document checklist",
+  intro:"From ACGME's ADS site visit checklist, updated June 2026. For Initial Accreditation statuses, PLAs were removed as a required upload as of July 1, 2026. Evaluations need evidence of review with the resident, such as a signature. Have your mock reviewer open real files and check.",
+  cols:[{k:"cat",l:"Category",t:"text",ro:true},{k:"doc",l:"Document",t:"text",ro:true},{k:"where",l:"Where it lives",t:"text"},{k:"owner",l:"Owner",t:"text"},{k:"current",l:"Current?",t:"select",o:YN},{k:"reviewed",l:"Reviewed in mock?",t:"select",o:YN}],
+  fixed:true,
+  seed:[{cat:"Every visit",doc:"Faculty and resident/fellow rosters"},{cat:"Every visit",doc:"Responses to citations"},{cat:"Every visit",doc:"Major Changes and Other Updates"},{cat:"Every visit",doc:"Signed Site Visit Attestation Statement"},{cat:"Continued or Probationary",doc:"Block diagram"},{cat:"Continued or Probationary",doc:"Program letters of agreement"},{cat:"Continued or Probationary",doc:"Resident/fellow files"},{cat:"Continued or Probationary",doc:"Example of competency-based goals and objectives"},{cat:"Continued or Probationary",doc:"Schedule of didactics and conferences"},{cat:"Continued or Probationary",doc:"Sample completed annual faculty evaluation by residents/fellows"},{cat:"Continued or Probationary",doc:"Program-specific policies"},{cat:"Continued or Probationary",doc:"Sample work hour report data"},{cat:"Continued or Probationary",doc:"Resident/fellow QI participation documents"}],
+  foot:"Produce documents at real-visit speed."},
+ {id:"idocs",kind:"table",num:"6",eyebrow:"Institutional mock visit",title:"Institutional uploads and Institutional Review Questionnaire",
+  intro:"Three site visit uploads for a Sponsoring Institution, then the Institutional Review Questionnaire items. Annotated minutes deserve a full rehearsal: tag each GMEC action with the requirement it fulfills and record actions with precise language, such as approved.",
+  cols:[{k:"cat",l:"Category",t:"text",ro:true},{k:"doc",l:"Document",t:"text",ro:true},{k:"where",l:"Where it lives",t:"text"},{k:"owner",l:"Owner",t:"text"},{k:"current",l:"Current?",t:"select",o:YN},{k:"reviewed",l:"Reviewed in mock?",t:"select",o:YN}],
+  fixed:true,
+  seed:[{cat:"Site visit upload",doc:"Written policies"},{cat:"Site visit upload",doc:"Sample resident and fellow agreements of appointment"},{cat:"Site visit upload",doc:"Professional liability coverage"},{cat:"IRQ",doc:"Organizational chart showing the DIO's position"},{cat:"IRQ",doc:"Organizational chart showing the GMEC's position"},{cat:"IRQ",doc:"Statement of Commitment"},{cat:"IRQ",doc:"GMEC membership"},{cat:"IRQ",doc:"Annotated GMEC minutes"},{cat:"IRQ",doc:"Annual Institutional Review summaries"},{cat:"IRQ",doc:"GMEC Special Review protocol"},{cat:"IRQ",doc:"Special Review reports, if available"}],
+  foot:"Pick any requirement and ask: show me the GMEC minute."},
+ {id:"stake",kind:"table",num:"7",eyebrow:"Who ACGME asks to attend",title:"Stakeholder scheduling",
+  intro:"Every role ACGME names for program and institutional visits. Whichever group is hardest to schedule, the fix starts with getting dates on calendars early.",
+  cols:[{k:"type",l:"Visit",t:"text",ro:true},{k:"role",l:"Role",t:"text",ro:true},{k:"name",l:"Name(s)",t:"text"},{k:"when",l:"Date and time",t:"text"},{k:"format",l:"Format",t:"select",o:["Zoom","In person"]},{k:"backup",l:"Backup",t:"text"},{k:"conf",l:"Confirmed?",t:"select",o:YN}],
+  fixed:true,
+  seed:[{type:"Program",role:"Program director"},{type:"Program",role:"Program Administrator(s)"},{type:"Program",role:"DIO and/or chair, or representative"},{type:"Program",role:"Faculty members"},{type:"Program",role:"Residents/fellows, junior years (peer-selected)"},{type:"Program",role:"Residents/fellows, senior year"},{type:"Institutional",role:"DIO"},{type:"Institutional",role:"Institutional Manager(s)"},{type:"Institutional",role:"Program directors"},{type:"Institutional",role:"Program Administrators"},{type:"Institutional",role:"GMEC members"},{type:"Institutional",role:"Senior institutional officials, such as the CEO"},{type:"Institutional",role:"Residents/fellows representing programs"},{type:"Institutional",role:"Faculty representing all sites"},{type:"Mock team",role:"Mock Field Representative (lead reviewer)"},{type:"Mock team",role:"Observer(s)"},{type:"Mock team",role:"IT support on standby"},{type:"Mock team",role:"Document custodian"}],
+  foot:"Coverage named in advance, not on the day."},
+ {id:"agenda",kind:"table",num:"8",eyebrow:"Mock day",title:"Mock visit agenda",
+  intro:"Modeled on the sample agenda for the fictional NAGIC Medical Center. Rebuild it once the real Letter of Instruction arrives.",
+  cols:[{k:"time",l:"Start",t:"text"},{k:"group",l:"Interview group or activity",t:"text"},{k:"who",l:"Participants",t:"text"},{k:"room",l:"Room or Zoom link",t:"text"},{k:"conf",l:"Confirmed?",t:"select",o:YN}],
+  seed:[{time:"8:00",group:"Program director and Program Administrator"},{time:"9:00",group:"Peer-selected residents, junior years"},{time:"9:45",group:"Peer-selected residents, senior year (separately)"},{time:"10:30",group:"Faculty members"},{time:"11:15",group:"Department chair or designee"},{time:"11:35",group:"DIO designee"},{time:"11:55",group:"Document review"},{time:"12:30",group:"Concluding meeting with the program director"}],
+  min:9,foot:"Keep real time boxes. One lead voice."},
+ {id:"qbank",kind:"table",num:"9",eyebrow:"The heart of the mock visit",title:"Question bank",
+  intro:"Build questions from the documents ACGME reads. Work section by section through the application or ADS update, each citation in ACGME's exact language, each area for improvement, each must, supervision (CPR 6.6 to 6.9), and low-scoring survey items.",
+  cols:[{k:"src",l:"Source document",t:"select",o:QSRC},{k:"req",l:"Requirement or section",t:"text"},{k:"q",l:"Question",t:"area"},{k:"group",l:"Ask",t:"select",o:GROUPS},{k:"evidence",l:"Evidence to compare",t:"area"},{k:"finding",l:"Finding",t:"area"}],
+  example:{src:"Supervision policy (CPR 6.6 to 6.9)",req:"CPR 6.6 to 6.9",q:"When must a supervising physician be physically present? How do you know?",group:"Residents/fellows (junior)",evidence:"Written supervision policy",finding:""},
+  min:8,foot:"Share topics, not scripts."},
+ {id:"themes",kind:"table",num:"10",eyebrow:"Institutional interviews",title:"Six institutional interview themes",
+  intro:"Requirement numbers reflect the 2026 Institutional Requirements. Build your mock from the requirements in effect on the date of the visit.",
+  cols:[{k:"theme",l:"Theme",t:"text",ro:true},{k:"prompt",l:"Prompt",t:"text",ro:true},{k:"docs",l:"What the documents say",t:"area"},{k:"people",l:"What people said",t:"area"},{k:"agree",l:"Agree?",t:"select",o:YN},{k:"follow",l:"Follow-up",t:"area"}],
+  fixed:true,
+  seed:[{theme:"GMEC oversight",prompt:"How do GMEC members monitor each program's accreditation status?"},{theme:"Annual Institutional Review",prompt:"Which minimum indicators does the AIR use: latest institutional LON, survey results, program statuses and citations?"},{theme:"Special Review",prompt:"How does a program meet your underperformance criteria, and what happens next?"},{theme:"Work hours",prompt:"How does the institution check work hours independently of program reports?"},{theme:"Resident forum",prompt:"How do residents use the option to meet, at least in part, without the DIO, faculty, or administrators?"},{theme:"Your role",prompt:"Learning environment, institutional support, and professional development for Institutional Managers"}],
+  foot:"Practice your own interview too."},
+ {id:"rules",kind:"table",num:"11",eyebrow:"Mock day",title:"Mock day ground rules and setup",
+  intro:"Run the mock the way ACGME runs the real visit. Confirm each item before the first interview.",
+  cols:[{k:"done",l:"Done",t:"check"},{k:"item",l:"Item",t:"text",ro:true},{k:"owner",l:"Owner",t:"text"},{k:"notes",l:"Notes",t:"text"}],
+  fixed:true,
+  seed:[{item:"Practice on Zoom, ACGME's remote platform"},{item:"One person per device, camera on, full face visible, name displayed"},{item:"Quiet, private room for each participant"},{item:"IT on standby"},{item:"No recording of interviews"},{item:"Interview privacy"},{item:"No retaliation against residents or fellows"},{item:"Encourage honesty; no coaching"},{item:"One lead voice asks the questions; observers stay silent"},{item:"Follow-up questions ready where answers and documents disagree"},{item:"Real time boxes kept"},{item:"Documents produced at real-visit speed"}],
+  foot:"The moment a director answers for residents, the rehearsal ends."},
+ {id:"debrief",kind:"table",num:"12",eyebrow:"After the mock",title:"Debrief tracker",
+  intro:"Write each finding the way a Review Committee writes a citation: name the requirement, state the evidence, and stop. Citation risks first, then areas for improvement, and keep the strengths. Track every item in the APE action plan.",
+  cols:[{k:"finding",l:"Finding",t:"area"},{k:"req",l:"Requirement #",t:"text"},{k:"evidence",l:"Evidence",t:"area"},{k:"type",l:"Strength or gap",t:"select",o:["Strength","Area for improvement","Citation risk"]},{k:"owner",l:"Owner",t:"text"},{k:"due",l:"Due date",t:"date"},{k:"status",l:"Status",t:"select",o:["Open","In progress","Closed"]}],
+  min:6,hint:"Send the same report to the program director and the DIO at the same time, within days. Re-verify evidence before any real visit. Report closure to the GMEC without resident-identifiable details.",foot:"A softened mock finding becomes an unsoftened real citation."},
+ {id:"calendar",kind:"table",num:"13",eyebrow:"Scale it",title:"Annual mock calendar",
+  intro:"Put mock visits on an annual calendar and let triggers set the order. Trade reviewers across programs.",
+  cols:[{k:"program",l:"Program",t:"text"},{k:"trigger",l:"Trigger",t:"select",o:["End of Initial Accreditation approaching","Warning or probationary status","Drop in ACGME survey results","New program director or Program Administrator","Nearing nine years since last visit","Scheduled rotation"]},{k:"month",l:"Planned month",t:"text"},{k:"lead",l:"Lead reviewer (from another program)",t:"text"},{k:"date",l:"Mock date",t:"date"},{k:"status",l:"Status",t:"select",o:STATUS}],
+  min:6,foot:"Your first mock visit starts with one date on a calendar."},
+ {id:"next",kind:"fields",num:"14",eyebrow:"Your first step",title:"What I will do first",
+  intro:"Pick one, put a date on it, and tell a colleague.",
+  items:[{k:"action",l:"My first action",s:"Pilot one program, build a question bank from the last application, fill in the stakeholder workbook, or brief the DIO and GMEC."},{k:"date",l:"By when"},{k:"colleague",l:"Colleague I will tell"}],
+  foot:"One date on a calendar."}
+];
+
+/* ---------- state ---------- */
+const KEY="mock-site-visit-toolkit-v1";
+let state={profile:{},sheets:{}};
+function load(){try{const s=localStorage.getItem(KEY);if(s){const p=JSON.parse(s);if(p&&typeof p==="object")state=Object.assign({profile:{},sheets:{}},p)}}catch(e){}}
+let saveT=null;
+function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(state));note("Saved in this browser.")}catch(e){note("Autosave is unavailable in this browser. Use Save backup before you leave.",true)}},250)}
+function note(t,err){const n=document.getElementById("savenote");if(n){n.textContent=t;n.style.color=err?"var(--mag)":""}}
+function rowsOf(def){
+  let rows=state.sheets[def.id];
+  if(!Array.isArray(rows)){
+    rows=(def.seed||[]).map(r=>Object.assign({},r));
+    if(!def.fixed){while(rows.length<(def.min||0))rows.push({})}
+    state.sheets[def.id]=rows;
+  }
+  return rows;
+}
+function objOf(id){if(!state.sheets[id]||typeof state.sheets[id]!=="object"||Array.isArray(state.sheets[id]))state.sheets[id]={};return state.sheets[id]}
+
+/* ---------- rendering ---------- */
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function el(html){const t=document.createElement("template");t.innerHTML=html.trim();return t.content.firstElementChild}
+
+function control(def,col,row,i,ro){
+  const id=`${def.id}_${i}_${col.k}`;const v=row[col.k]??"";
+  if(col.t==="check")return `<input type="checkbox" id="${id}" data-k="${col.k}" ${v?"checked":""} aria-label="${esc(col.l)} row ${i+1}">`;
+  if(col.t==="select")return `<select id="${id}" data-k="${col.k}" aria-label="${esc(col.l)} row ${i+1}"><option value=""></option>${col.o.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  if(col.t==="area")return `<textarea id="${id}" data-k="${col.k}" rows="1" aria-label="${esc(col.l)} row ${i+1}">${esc(v)}</textarea>`;
+  if(col.t==="date")return `<input type="date" id="${id}" data-k="${col.k}" value="${esc(v)}" aria-label="${esc(col.l)} row ${i+1}">`;
+  return `<input type="text" id="${id}" data-k="${col.k}" value="${esc(v)}" ${ro?"readonly":""} aria-label="${esc(col.l)} row ${i+1}">`;
+}
+
+function renderTable(def,host){
+  const rows=rowsOf(def);
+  const body=host.querySelector("tbody");
+  let html="";
+  if(def.example){
+    html+=`<tr class="example" aria-label="Example row">${def.cols.map(c=>`<td class="${c.t==="check"?"narrow":""}">${c.t==="check"?"":`<input type="text" value="${esc(def.example[c.k]||"")}" readonly tabindex="-1" aria-label="Example ${esc(c.l)}">`}</td>`).join("")}<td class="del"></td></tr>`;
+  }
+  rows.forEach((r,i)=>{
+    html+=`<tr data-i="${i}">${def.cols.map(c=>`<td class="${c.t==="check"?"narrow":""}">${control(def,c,r,i,c.ro)}</td>`).join("")}<td class="del">${def.fixed?"":`<button class="x" type="button" data-del="${i}" aria-label="Remove row ${i+1}">&times;</button>`}</td></tr>`;
+  });
+  body.innerHTML=html;
+  body.querySelectorAll("textarea").forEach(autosize);
+}
+function autosize(t){t.style.height="auto";t.style.height=(t.scrollHeight+2)+"px"}
+
+function buildSheet(def){
+  const ws=el(`<article class="ws" id="ws-${def.id}" aria-labelledby="h-${def.id}">
+    <div class="top"><p class="eyebrow">${esc(def.eyebrow)}</p><h2 id="h-${def.id}">${esc(def.title)}</h2><p>${esc(def.intro)}</p></div>
+    <div class="body"></div>
+    ${def.hint?`<p class="hint">${esc(def.hint)}</p>`:""}
+    <div class="bar"><p class="foot">${esc(def.foot||"")}</p><div class="acts"></div></div>
+    <p class="status" aria-live="polite"></p>
+  </article>`);
+  const body=ws.querySelector(".body"), acts=ws.querySelector(".acts"), status=ws.querySelector(".status");
+
+  if(def.kind==="table"){
+    body.innerHTML=`<div class="tablewrap"><table><thead><tr>${def.cols.map(c=>`<th scope="col">${esc(c.l)}</th>`).join("")}<th scope="col"><span class="vis-hidden">Remove</span></th></tr></thead><tbody></tbody></table></div>`;
+    renderTable(def,body);
+    body.addEventListener("input",e=>{
+      const tr=e.target.closest("tr[data-i]");if(!tr)return;
+      const i=+tr.dataset.i,k=e.target.dataset.k;if(!k)return;
+      const rows=rowsOf(def);rows[i]=rows[i]||{};
+      rows[i][k]=e.target.type==="checkbox"?e.target.checked:e.target.value;
+      if(e.target.tagName==="TEXTAREA")autosize(e.target);
+      save();
+    });
+    body.addEventListener("click",e=>{
+      const b=e.target.closest("[data-del]");if(!b)return;
+      rowsOf(def).splice(+b.dataset.del,1);renderTable(def,body);save();
+    });
+    if(!def.fixed){
+      const add=el(`<button class="btn" type="button">Add row</button>`);
+      add.onclick=()=>{rowsOf(def).push({});renderTable(def,body);save();const last=body.querySelector("tbody tr:last-child input,tbody tr:last-child select");if(last)last.focus()};
+      acts.appendChild(add);
+    }
+    const csv=el(`<button class="btn" type="button">Download CSV</button>`);
+    csv.onclick=()=>saveFile(`${slug(def.title)}.csv`,toCSV(def),status);
+    acts.appendChild(csv);
+    const clr=el(`<button class="btn quiet" type="button">Clear</button>`);
+    clr.onclick=()=>confirmBtn(clr,()=>{delete state.sheets[def.id];renderTable(def,body);save()});
+    acts.appendChild(clr);
+  }
+
+  if(def.kind==="quad"){
+    const o=objOf(def.id);
+    body.innerHTML=`<div class="quad">${def.quads.map(q=>`<div class="card"><label for="${def.id}_${q.k}">${esc(q.l)}</label><p class="hint">${esc(q.h)}</p><textarea id="${def.id}_${q.k}" data-k="${q.k}" placeholder="One item per line">${esc(o[q.k]||"")}</textarea></div>`).join("")}</div>`;
+    body.addEventListener("input",e=>{if(e.target.dataset.k){o[e.target.dataset.k]=e.target.value;save()}});
+    const md=el(`<button class="btn" type="button">Download as Markdown</button>`);
+    md.onclick=()=>saveFile(`${slug(def.title)}.md`,mdOf(def),status);
+    acts.appendChild(md);
+  }
+
+  if(def.kind==="score"){
+    const o=objOf(def.id);
+    body.innerHTML=`<div class="score">${def.items.map(it=>{const v=o[it.k]||3;return `<div class="row"><p id="l_${def.id}_${it.k}">${esc(it.l)}</p><output class="val" for="${def.id}_${it.k}">${v}</output><input type="range" min="1" max="5" step="1" value="${v}" id="${def.id}_${it.k}" data-k="${it.k}" aria-labelledby="l_${def.id}_${it.k}"><div class="ends"><span>Not at all</span><span>Completely</span></div></div>`}).join("")}</div>`;
+    body.addEventListener("input",e=>{if(e.target.dataset.k){o[e.target.dataset.k]=+e.target.value;e.target.parentElement.querySelector("output").textContent=e.target.value;save()}});
+  }
+
+  if(def.kind==="fields"){
+    const o=objOf(def.id);
+    body.innerHTML=`<div class="fields" style="grid-template-columns:1fr">${def.items.map(it=>`<div class="field"><label for="${def.id}_${it.k}">${esc(it.l)}${it.s?` <span class="sub">${esc(it.s)}</span>`:""}</label><textarea id="${def.id}_${it.k}" data-k="${it.k}" rows="2">${esc(o[it.k]||"")}</textarea></div>`).join("")}</div>`;
+    body.addEventListener("input",e=>{if(e.target.dataset.k){o[e.target.dataset.k]=e.target.value;autosize(e.target);save()}});
+    const md=el(`<button class="btn" type="button">Download as Markdown</button>`);
+    md.onclick=()=>saveFile(`${slug(def.title)}.md`,mdOf(def),status);
+    acts.appendChild(md);
+  }
+  return ws;
+}
+
+function confirmBtn(btn,fn){
+  if(btn.dataset.armed){delete btn.dataset.armed;btn.textContent=btn.dataset.label;fn();return}
+  btn.dataset.label=btn.textContent;btn.dataset.armed="1";btn.textContent="Click again to confirm";
+  setTimeout(()=>{if(btn.dataset.armed){delete btn.dataset.armed;btn.textContent=btn.dataset.label}},4000);
+}
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+
+/* ---------- exports ---------- */
+function csvCell(v){v=v===true?"Yes":v===false?"No":String(v??"");return /[",\n]/.test(v)?`"${v.replace(/"/g,'""')}"`:v}
+function toCSV(def){
+  const rows=rowsOf(def);
+  return [def.cols.map(c=>csvCell(c.l)).join(",")].concat(rows.map(r=>def.cols.map(c=>csvCell(r[c.k])).join(","))).join("\r\n");
+}
+function mdOf(def){
+  let out=`## ${def.title}\n\n`;
+  if(def.kind==="table"){
+    const rows=rowsOf(def).filter(r=>def.cols.some(c=>r[c.k]!==undefined&&r[c.k]!==""&&r[c.k]!==false));
+    out+=`| ${def.cols.map(c=>c.l).join(" | ")} |\n| ${def.cols.map(()=>"---").join(" | ")} |\n`;
+    rows.forEach(r=>{out+=`| ${def.cols.map(c=>String(r[c.k]===true?"Yes":r[c.k]===false?"":(r[c.k]??"")).replace(/\|/g,"/").replace(/\n/g," ")).join(" | ")} |\n`});
+  } else if(def.kind==="quad"){
+    const o=objOf(def.id);def.quads.forEach(q=>{out+=`### ${q.l}\n${(o[q.k]||"").split("\n").filter(Boolean).map(l=>`- ${l}`).join("\n")||"- "}\n\n`});
+  } else if(def.kind==="score"){
+    const o=objOf(def.id);def.items.forEach(it=>{out+=`- ${it.l} **${o[it.k]||3} / 5**\n`});
+  } else {
+    const o=objOf(def.id);def.items.forEach(it=>{out+=`**${it.l}**\n${o[it.k]||"(blank)"}\n\n`});
+  }
+  return out+"\n";
+}
+function allMd(){
+  const p=state.profile||{};
+  let out=`# Onboarding roadmap\n\nFrom Survival Mode to Sustainable Practice, ACGME 2027\n\n${p.name?`**Name:** ${p.name}  \n`:""}${p.inst?`**Institution:** ${p.inst}  \n`:""}${p.prog?`**Program:** ${p.prog}  \n`:""}${p.date?`**Date:** ${p.date}  \n`:""}\n`;
+  SHEETS.forEach(d=>{out+=mdOf(d)});
+  return out;
+}
+
+/* ---------- downloads capability ---------- */
+let dlP=null;
+function dl(){if(!dlP){dlP=(window.claude&&typeof window.claude.use==="function")?window.claude.use("downloads").catch(()=>null):Promise.resolve(null)}return dlP}
+async function saveFile(filename,data,statusEl){
+  const set=(t,c)=>{if(statusEl){statusEl.textContent=t;statusEl.className="status "+(c||"")}};
+  const d=await dl();
+  if(!d){try{const blob=data instanceof Blob?data:new Blob([data]);const u=URL.createObjectURL(blob);const a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);set("Downloaded.","ok");toast("Downloaded "+filename)}catch(e){set("That file could not be saved here.","err")}return}
+  try{set("Waiting for your confirmation.");await d.save({filename,data});set("Saved.","ok");toast("Saved "+filename)}
+  catch(e){const c=e&&e.code;if(c==="declined")set("Download cancelled.");else if(c==="rate_limited")set("Another download prompt is open. Try again in a moment.","err");else set("That file could not be saved here.","err")}
+}
+let toastT=null;
+function toast(t){let n=document.querySelector(".toast");if(!n){n=el(`<div class="toast" role="status"></div>`);document.body.appendChild(n)}n.textContent=t;clearTimeout(toastT);toastT=setTimeout(()=>n.remove(),2600)}
+
+/* ---------- routing ---------- */
+const VIEWS=["start","guide","worksheets","files","sources"];
+function route(){
+  let h=(location.hash||"#start").slice(1);
+  let target=null;
+  if(!VIEWS.includes(h)){ if(h.startsWith("ws-")){target=h;h="worksheets"} else h="start" }
+  VIEWS.forEach(v=>{document.getElementById("v-"+v).hidden=v!==h});
+  document.querySelectorAll("nav a").forEach(a=>{if(a.dataset.nav===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  if(target){const t=document.getElementById(target);if(t)t.scrollIntoView({block:"start"})} else window.scrollTo(0,0);
+}
+
+/* ---------- init ---------- */
+function init(){
+  load();
+  const host=document.getElementById("sheets"),toc=document.getElementById("toc");
+  SHEETS.forEach(d=>{host.appendChild(buildSheet(d));toc.appendChild(el(`<a href="#ws-${d.id}"><b>${d.num}</b>${esc(d.title)}</a>`))});
+  document.querySelectorAll("#profile input").forEach(i=>{i.value=state.profile[i.dataset.k]||"";i.addEventListener("input",()=>{state.profile[i.dataset.k]=i.value;save()})});
+  document.getElementById("exportAll").onclick=e=>saveFile("mock-site-visit-plan.md",allMd(),document.getElementById("savenote"));
+  document.getElementById("backup").onclick=()=>saveFile("mock-site-visit-backup.json",JSON.stringify(state,null,2),document.getElementById("savenote"));
+  document.getElementById("restore").addEventListener("change",e=>{
+    const f=e.target.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const p=JSON.parse(r.result);if(!p||typeof p!=="object"||!p.sheets)throw 0;state={profile:p.profile||{},sheets:p.sheets||{}};save();rerender();toast("Backup restored.")}catch(err){note("That file is not a backup from this site.",true)}};
+    r.readAsText(f);e.target.value="";
+  });
+  const clr=document.getElementById("clearAll");
+  clr.onclick=()=>confirmBtn(clr,()=>{state={profile:{},sheets:{}};try{localStorage.removeItem(KEY)}catch(e){}rerender();toast("Cleared.")});
+  document.querySelectorAll("#filelist [data-file]").forEach(b=>{
+    b.onclick=async()=>{
+      const st=document.getElementById("filestatus");b.disabled=true;
+      try{const b64=(window.__FILES||{})[b.dataset.file];if(!b64)throw 0;const bin=atob(b64),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);await saveFile(b.dataset.name,new Blob([u8]),st)}
+      catch(e){st.textContent="The file could not be loaded. Reload the page and try again.";st.className="status err"}
+      b.disabled=false;
+    };
+  });
+
+  window.addEventListener("hashchange",route);
+  route();
+}
+function rerender(){
+  const host=document.getElementById("sheets");host.innerHTML="";
+  SHEETS.forEach(d=>host.appendChild(buildSheet(d)));
+  document.querySelectorAll("#profile input").forEach(i=>{i.value=state.profile[i.dataset.k]||""});
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+
+})();
+</script>
+</body>
+</html>
